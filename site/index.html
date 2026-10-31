@@ -59,6 +59,7 @@
       margin: 1.4rem 0 0;
       color: var(--muted);
       font-size: 0.98rem;
+      text-wrap: pretty;
     }
 
     .add {
@@ -85,11 +86,12 @@
     }
 
     .note {
-      max-width: 32rem;
+      max-width: 34rem;
       margin: 1.15rem 0 0;
       color: var(--faint);
       font-size: 0.82rem;
       line-height: 1.75;
+      text-wrap: pretty;
     }
 
     .packages { margin-top: 4.25rem; }
@@ -170,9 +172,9 @@
   <main>
     <p class="kicker">S0iRu</p>
     <h1>VPM Packages</h1>
-    <p class="lead">VRChat 向けパッケージを、ALCOM と VCC からまとめて追加するための一覧です。</p>
+    <p class="lead">ALCOM と VCC から入れる、VRChat 向けパッケージの一覧です。</p>
     <a class="add" href="vcc://vpm/addRepo?url=https%3A%2F%2Fs0iru.github.io%2Fvpm-repos%2Findex.json">リポジトリを追加 <span aria-hidden="true">→</span></a>
-    <p class="note">Windows では、最後に vcc リンクを登録した ALCOM または VCC が開きます。ALCOM で開かないときは、ALCOM の設定で vcc リンクを登録してからもう一度押してください。</p>
+    <p class="note">Windows では、vcc リンクを登録した ALCOM または VCC が開きます。<br>ALCOM で開かないときは、設定から vcc リンクを登録してください。</p>
 
     <section class="packages" id="packages">
       <p class="kicker">パッケージ</p>
