@@ -12,8 +12,8 @@
       color-scheme: dark;
       --bg: #12110e;
       --fg: #f3efe6;
-      --muted: #b7b1a6;
-      --faint: #7d776d;
+      --muted: #e4ddd2;
+      --faint: #d2cbc0;
       --line: rgba(243, 239, 230, 0.16);
       --paper: #f3efe6;
       --hover: #e7d3b1;
@@ -26,7 +26,7 @@
     body {
       min-height: 100vh;
       font-family: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", sans-serif;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 1.7;
     }
 
@@ -203,18 +203,18 @@
       <p class="kicker">パッケージ</p>
       <article>
         <header>
-          <h2><a href="https://github.com/S0iRu/ContinuousAvatarUploader">Continuous Avatar Uploader</a></h2>
+          <h2><a href="https://github.com/S0iRu/ContinuousAvatarUploader" target="_blank" rel="noopener noreferrer">Continuous Avatar Uploader</a></h2>
           <span class="ver">0.3.13-beta.2</span>
         </header>
         <p class="id">com.s0iru.continuous-avatar-uploader</p>
-        <p class="fork"><a href="https://github.com/anatawa12/ContinuousAvatarUploader">anatawa12/ContinuousAvatarUploader</a> のフォーク</p>
+        <p class="fork"><a href="https://github.com/anatawa12/ContinuousAvatarUploader" target="_blank" rel="noopener noreferrer">anatawa12/ContinuousAvatarUploader</a> のフォーク</p>
         <p class="desc">The tool to upload multiple avatars continuously with tagging version</p>
       </article>
     </section>
 
     <section class="url">
       <p class="kicker">一覧</p>
-      <a href="index.json">https://s0iru.github.io/vpm-repos/index.json</a>
+      <a href="index.json" target="_blank" rel="noopener noreferrer">https://s0iru.github.io/vpm-repos/index.json</a>
     </section>
   </main>
   <script>
@@ -253,7 +253,7 @@
       if (!fork || !fork.name) return "";
       const name = escapeHtml(fork.name);
       const label = fork.url
-        ? `<a href="${escapeHtml(fork.url)}">${name}</a>`
+        ? `<a href="${escapeHtml(fork.url)}" target="_blank" rel="noopener noreferrer">${name}</a>`
         : name;
       return `<p class="fork">${label} のフォーク</p>`;
     }
@@ -267,7 +267,7 @@
         const title = escapeHtml(info.displayName || info.name);
         const href = escapeHtml(info.githubUrl || "");
         const heading = href
-          ? `<a href="${href}">${title}</a>`
+          ? `<a href="${href}" target="_blank" rel="noopener noreferrer">${title}</a>`
           : title;
         return `<article>
           <header>
