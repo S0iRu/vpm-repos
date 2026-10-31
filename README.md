@@ -2,7 +2,11 @@
 
 S0iRu の VRChat 向けパッケージを配る VPM リポジトリです。zip はそれぞれのパッケージリポジトリの GitHub Release にあり、このリポジトリは一覧だけを GitHub Pages で配信します。
 
-ALCOM または VCC に追加する URL:
+追加ページ: https://s0iru.github.io/vpm-repos/
+
+ページの「ALCOM / VCC にこのリポジトリを追加」は `vcc://vpm/addRepo` を開き、ALCOM または VCC のリポジトリ追加へ進みます。Windows では、最後に vcc リンクを登録したアプリが開きます。
+
+手で追加する場合の URL:
 
 ```
 https://s0iru.github.io/vpm-repos/index.json
