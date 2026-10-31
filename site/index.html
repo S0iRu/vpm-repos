@@ -2,15 +2,255 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>S0iRu VPM Packages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #12110e;
+      --fg: #f3efe6;
+      --muted: #b7b1a6;
+      --faint: #7d776d;
+      --line: rgba(243, 239, 230, 0.16);
+      --paper: #f3efe6;
+      --hover: #e7d3b1;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { margin: 0; background: var(--bg); color: var(--fg); }
+
+    body {
+      min-height: 100vh;
+      font-family: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    main {
+      width: min(40rem, calc(100% - 3rem));
+      margin: 0 auto;
+      padding: 6.5rem 0 5rem;
+    }
+
+    .kicker {
+      margin: 0;
+      color: var(--faint);
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0.85rem 0 0;
+      font-family: "Shippori Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-weight: 500;
+      font-size: clamp(2.7rem, 8vw, 4.4rem);
+      line-height: 1.12;
+      letter-spacing: 0.02em;
+    }
+
+    .lead {
+      max-width: 28rem;
+      margin: 1.4rem 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .add {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-top: 2.1rem;
+      padding: 0.85rem 1.15rem 0.85rem 1.25rem;
+      background: var(--paper);
+      color: var(--bg);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+    }
+
+    .add span { transition: transform 160ms ease; }
+
+    .add:hover { background: var(--hover); }
+    .add:hover span { transform: translateX(0.2rem); }
+
+    .add:focus-visible {
+      outline: 2px solid var(--hover);
+      outline-offset: 3px;
+    }
+
+    .note {
+      max-width: 32rem;
+      margin: 1.15rem 0 0;
+      color: var(--faint);
+      font-size: 0.82rem;
+      line-height: 1.75;
+    }
+
+    .packages { margin-top: 4.25rem; }
+
+    .packages .kicker { margin-bottom: 0.4rem; }
+
+    article {
+      padding: 1.25rem 0 1.35rem;
+      border-top: 1px solid var(--line);
+    }
+
+    article header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: "Zen Kaku Gothic New", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    h2 a { color: inherit; text-decoration: none; }
+    h2 a:hover { color: var(--hover); }
+
+    .ver, .id, .url a {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+    }
+
+    .ver {
+      flex: none;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .id, .desc { margin: 0.15rem 0 0; }
+
+    .id {
+      color: var(--faint);
+      font-size: 0.75rem;
+      overflow-wrap: anywhere;
+    }
+
+    .desc {
+      margin-top: 0.45rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .url {
+      margin-top: 3.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .url a {
+      display: inline-block;
+      margin-top: 0.35rem;
+      color: var(--fg);
+      font-size: 0.78rem;
+      overflow-wrap: anywhere;
+      text-underline-offset: 0.25em;
+    }
+
+    .url a:hover { color: var(--hover); }
+
+    @media (max-width: 640px) {
+      main { width: min(40rem, calc(100% - 2rem)); padding-top: 3.5rem; }
+      article header { align-items: flex-start; flex-direction: column; gap: 0.2rem; }
+    }
+  </style>
 </head>
 <body>
-  <h1>S0iRu VPM Packages</h1>
-  <p>
-    <a href="vcc://vpm/addRepo?url=https%3A%2F%2Fs0iru.github.io%2Fvpm-repos%2Findex.json">ALCOM / VCC にこのリポジトリを追加</a>
-  </p>
-  <p>このリンクは ALCOM または VCC のリポジトリ追加を開きます。Windows では、最後に vcc リンクを登録したアプリが開きます。ALCOM で開かないときは、ALCOM の設定で vcc リンクを登録してからもう一度押してください。</p>
-  <p>リンクで開けない場合は、次の URL を「VPMリポジトリを追加」に貼ってください。</p>
-  <p><a href="index.json">https://s0iru.github.io/vpm-repos/index.json</a></p>
+  <main>
+    <p class="kicker">S0iRu</p>
+    <h1>VPM Packages</h1>
+    <p class="lead">VRChat 向けパッケージを、ALCOM と VCC からまとめて追加するための一覧です。</p>
+    <a class="add" href="vcc://vpm/addRepo?url=https%3A%2F%2Fs0iru.github.io%2Fvpm-repos%2Findex.json">リポジトリを追加 <span aria-hidden="true">→</span></a>
+    <p class="note">Windows では、最後に vcc リンクを登録した ALCOM または VCC が開きます。ALCOM で開かないときは、ALCOM の設定で vcc リンクを登録してからもう一度押してください。</p>
+
+    <section class="packages" id="packages">
+      <p class="kicker">パッケージ</p>
+      <article>
+        <header>
+          <h2><a href="https://github.com/S0iRu/ContinuousAvatarUploader">Continuous Avatar Uploader</a></h2>
+          <span class="ver">0.3.13-beta.2</span>
+        </header>
+        <p class="id">com.s0iru.continuous-avatar-uploader</p>
+        <p class="desc">The tool to upload multiple avatars continuously with tagging version</p>
+      </article>
+    </section>
+
+    <section class="url">
+      <p class="kicker">一覧</p>
+      <a href="index.json">https://s0iru.github.io/vpm-repos/index.json</a>
+    </section>
+  </main>
+  <script>
+    function compareVersions(a, b) {
+      const parse = (value) => {
+        const [core, pre = ""] = value.split("-");
+        return { nums: core.split(".").map((part) => Number(part) || 0), pre };
+      };
+      const left = parse(a);
+      const right = parse(b);
+      for (let i = 0; i < 3; i += 1) {
+        const diff = (left.nums[i] || 0) - (right.nums[i] || 0);
+        if (diff) return diff;
+      }
+      if (left.pre === right.pre) return 0;
+      if (!left.pre) return 1;
+      if (!right.pre) return -1;
+      return left.pre < right.pre ? -1 : 1;
+    }
+
+    function latestVersion(versions) {
+      return Object.keys(versions).sort(compareVersions).at(-1);
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function render(listing) {
+      const section = document.querySelector("#packages");
+      const articles = Object.values(listing.packages || {}).map((pkg) => {
+        const version = latestVersion(pkg.versions || {});
+        const info = version ? pkg.versions[version] : null;
+        if (!info) return "";
+        const title = escapeHtml(info.displayName || info.name);
+        const href = escapeHtml(info.githubUrl || "");
+        const heading = href
+          ? `<a href="${href}">${title}</a>`
+          : title;
+        return `<article>
+          <header>
+            <h2>${heading}</h2>
+            <span class="ver">${escapeHtml(info.version)}</span>
+          </header>
+          <p class="id">${escapeHtml(info.name)}</p>
+          ${info.description ? `<p class="desc">${escapeHtml(info.description)}</p>` : ""}
+        </article>`;
+      }).join("");
+      if (!articles) return;
+      section.innerHTML = `<p class="kicker">パッケージ</p>${articles}`;
+    }
+
+    fetch("index.json")
+      .then((response) => response.json())
+      .then(render)
+      .catch(() => {});
+  </script>
 </body>
 </html>
