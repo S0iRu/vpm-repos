@@ -10,13 +10,18 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #12110e;
-      --fg: #f3efe6;
-      --muted: #e4ddd2;
-      --faint: #d2cbc0;
-      --line: rgba(243, 239, 230, 0.16);
-      --paper: #f3efe6;
-      --hover: #e7d3b1;
+      --bg: #0e0e0e;
+      --fg: #f2f2f2;
+      --muted: #c6c6c6;
+      --faint: #8d8d8d;
+      --line: rgba(255, 255, 255, 0.1);
+      --paper: #f2f2f2;
+      --hover: #5b9dff;
+    }
+
+    ::selection {
+      background: #5b9dff;
+      color: #0e0e0e;
     }
 
     * { box-sizing: border-box; }
@@ -87,7 +92,7 @@
 
     .add span { transition: transform 160ms ease; }
 
-    .add:hover { background: var(--hover); }
+    .add:hover { background: #d4d4d4; }
     .add:hover span { transform: translateX(0.2rem); }
 
     .add:focus-visible {
