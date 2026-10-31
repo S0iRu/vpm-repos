@@ -1,0 +1,11 @@
+{
+  "name": "vpm-repos",
+  "private": true,
+  "description": "VPM repository listing for S0iRu packages",
+  "scripts": {
+    "build": "vpm-listing"
+  },
+  "dependencies": {
+    "vpm-listing-site-generator": "^1.3.3"
+  }
+}

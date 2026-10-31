@@ -1,0 +1,17 @@
+{
+  "name": "S0iRu VPM Packages",
+  "id": "com.s0iru.vpm",
+  "url": "https://s0iru.github.io/vpm-repos/index.json",
+  "author": {
+    "name": "S0iRu",
+    "url": "https://github.com/S0iRu"
+  },
+  "description": "S0iRu の VRChat 向けパッケージ",
+  "infoLink": {
+    "url": "https://github.com/S0iRu/vpm-repos",
+    "text": "View on GitHub"
+  },
+  "githubRepos": [
+    "S0iRu/ContinuousAvatarUploader"
+  ]
+}
