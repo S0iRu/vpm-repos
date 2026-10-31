@@ -6,7 +6,7 @@
   <title>S0iRu VPM Packages</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@500&family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: dark;
@@ -36,13 +36,23 @@
       padding: 6.5rem 0 5rem;
     }
 
+    .mark {
+      margin: 0;
+      color: var(--fg);
+      font-family: "IBM Plex Sans", "Zen Kaku Gothic New", sans-serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 1;
+    }
+
     .kicker {
       margin: 0;
       color: var(--faint);
-      font-family: "IBM Plex Mono", ui-monospace, monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+      font-family: "IBM Plex Sans", "Zen Kaku Gothic New", sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
     }
 
     h1 {
@@ -145,6 +155,19 @@
       font-size: 0.9rem;
     }
 
+    .fork {
+      margin: 0.45rem 0 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .fork a {
+      color: inherit;
+      text-underline-offset: 0.2em;
+    }
+
+    .fork a:hover { color: var(--hover); }
+
     .url {
       margin-top: 3.5rem;
       padding-top: 1.25rem;
@@ -170,7 +193,7 @@
 </head>
 <body>
   <main>
-    <p class="kicker">S0iRu</p>
+    <p class="mark">S0iRu</p>
     <h1>VPM Packages</h1>
     <p class="lead">ALCOM と VCC から入れる、VRChat 向けパッケージの一覧です。</p>
     <a class="add" href="vcc://vpm/addRepo?url=https%3A%2F%2Fs0iru.github.io%2Fvpm-repos%2Findex.json">リポジトリを追加 <span aria-hidden="true">→</span></a>
@@ -184,6 +207,7 @@
           <span class="ver">0.3.13-beta.2</span>
         </header>
         <p class="id">com.s0iru.continuous-avatar-uploader</p>
+        <p class="fork"><a href="https://github.com/anatawa12/ContinuousAvatarUploader">anatawa12/ContinuousAvatarUploader</a> のフォーク</p>
         <p class="desc">The tool to upload multiple avatars continuously with tagging version</p>
       </article>
     </section>
@@ -225,9 +249,18 @@
       })[char]);
     }
 
-    function render(listing) {
+    function forkLine(fork) {
+      if (!fork || !fork.name) return "";
+      const name = escapeHtml(fork.name);
+      const label = fork.url
+        ? `<a href="${escapeHtml(fork.url)}">${name}</a>`
+        : name;
+      return `<p class="fork">${label} のフォーク</p>`;
+    }
+
+    function render(listing, forks) {
       const section = document.querySelector("#packages");
-      const articles = Object.values(listing.packages || {}).map((pkg) => {
+      const articles = Object.entries(listing.packages || {}).map(([id, pkg]) => {
         const version = latestVersion(pkg.versions || {});
         const info = version ? pkg.versions[version] : null;
         if (!info) return "";
@@ -242,6 +275,7 @@
             <span class="ver">${escapeHtml(info.version)}</span>
           </header>
           <p class="id">${escapeHtml(info.name)}</p>
+          ${forkLine(forks[id] || forks[info.name])}
           ${info.description ? `<p class="desc">${escapeHtml(info.description)}</p>` : ""}
         </article>`;
       }).join("");
@@ -249,10 +283,10 @@
       section.innerHTML = `<p class="kicker">パッケージ</p>${articles}`;
     }
 
-    fetch("index.json")
-      .then((response) => response.json())
-      .then(render)
-      .catch(() => {});
+    Promise.all([
+      fetch("index.json").then((response) => response.json()),
+      fetch("forks.json").then((response) => response.ok ? response.json() : {})
+    ]).then(([listing, forks]) => render(listing, forks)).catch(() => {});
   </script>
 </body>
 </html>

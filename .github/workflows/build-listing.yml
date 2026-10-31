@@ -11,6 +11,7 @@ on:
     paths:
       - source.json
       - site/index.html
+      - site/forks.json
       - .github/workflows/build-listing.yml
 
 permissions:
@@ -50,6 +51,7 @@ jobs:
           mkdir -p dist
           cp index.json dist/index.json
           cp site/index.html dist/index.html
+          cp site/forks.json dist/forks.json
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

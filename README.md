@@ -19,6 +19,7 @@ https://s0iru.github.io/vpm-repos/index.json
    - `package.json`
    - `{パッケージ名}-{バージョン}.zip`（zip の直下に `package.json` があること）
 3. このリポジトリの `source.json` の `githubRepos` に `owner/repo` を1行追加して push する。
+4. 上流のフォークなら、`site/forks.json` にパッケージ ID と元リポジトリを書く。一覧ページに「○○ のフォーク」と出る。
 
 プレリリースのバージョンは、プロジェクト側でプレリリースパッケージを表示するとインストールできます。
 
