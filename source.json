@@ -12,6 +12,9 @@
     "text": "View on GitHub"
   },
   "githubRepos": [
-    "S0iRu/ContinuousAvatarUploader"
+    "S0iRu/ContinuousAvatarUploader",
+    "S0iRu/HierarchyXSorter",
+    "S0iRu/pipeline-detacher",
+    "S0iRu/SimpleFolderIcon"
   ]
 }

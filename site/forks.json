@@ -2,5 +2,9 @@
   "com.s0iru.continuous-avatar-uploader": {
     "name": "anatawa12/ContinuousAvatarUploader",
     "url": "https://github.com/anatawa12/ContinuousAvatarUploader"
+  },
+  "com.s0iru.simple-folder-icon": {
+    "name": "SeaeeesSan/SimpleFolderIcon",
+    "url": "https://github.com/SeaeeesSan/SimpleFolderIcon"
   }
 }
