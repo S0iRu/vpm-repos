@@ -14,13 +14,11 @@ https://s0iru.github.io/vpm-repos/index.json
 
 ## パッケージを足す
 
-1. パッケージリポジトリの直下に VPM 用の `package.json` を置く。
-2. GitHub Release に、次の2つの資産を付ける。
-   - `package.json`
-   - `{パッケージ名}-{バージョン}.zip`（zip の直下に `package.json` があること）
-3. このリポジトリの `source.json` の `githubRepos` に `owner/repo` を1行追加して push する。
+1. パッケージリポジトリの直下、または Simple Folder Icon のように `Packages/<パッケージ名>` に VPM 用の `package.json` を置く。
+2. このリポジトリの `source.json` の `githubRepos` に `owner/repo` を1行追加する。
+3. パッケージリポジトリから `.github/workflows/publish-package.yml` を呼ぶ。`package.json` の version を上げてデフォルトブランチへ push すると、GitHub Release と zip が作られる。同じ version の Release がある push は配信しない。
 4. 上流のフォークなら、`site/forks.json` にパッケージ ID と元リポジトリを書く。一覧ページに「○○ のフォーク」と出る。
 
 プレリリースのバージョンは、プロジェクト側でプレリリースパッケージを表示するとインストールできます。
 
-パッケージのリリース直後に一覧を更新するには、パッケージリポジトリの secret `LISTING_DISPATCH_TOKEN` に、このリポジトリの Actions を起動できる PAT を設定します。未設定でも、このリポジトリの日次ビルドか Actions の手動実行で一覧は更新されます。
+Release の直後に一覧を更新するには、パッケージリポジトリの secret `LISTING_DISPATCH_TOKEN` に、このリポジトリの Actions を起動できる PAT を設定します。未設定でも Release は成功し、一覧は毎日 0:00（日本時間）か Actions の手動実行で更新されます。

@@ -1,0 +1,97 @@
+name: Publish package
+
+on:
+  workflow_call:
+    inputs:
+      package_dir:
+        description: Directory that contains package.json, relative to the repository root.
+        required: false
+        type: string
+        default: "."
+    secrets:
+      LISTING_DISPATCH_TOKEN:
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.sha }}
+
+      - name: Read package
+        id: pkg
+        working-directory: ${{ inputs.package_dir }}
+        run: |
+          name="$(jq -r .name package.json)"
+          version="$(jq -r .version package.json)"
+          test -n "$name"
+          test -n "$version"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          case "$version" in
+            *-* ) echo "prerelease=true" >> "$GITHUB_OUTPUT" ;;
+            * ) echo "prerelease=false" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - name: Skip when this version is already released
+        id: exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "v${{ steps.pkg.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Release v${{ steps.pkg.outputs.version }} already exists."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build zip
+        if: steps.exists.outputs.exists != 'true'
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/vpm-dist"
+          (
+            cd "${{ inputs.package_dir }}"
+            zip -r "$GITHUB_WORKSPACE/vpm-dist/${{ steps.pkg.outputs.name }}-${{ steps.pkg.outputs.version }}.zip" . \
+              -x '.git' '.git/*' \
+              -x '.github' '.github/*' \
+              -x '.*'
+          )
+
+      - name: Create release
+        if: steps.exists.outputs.exists != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ steps.pkg.outputs.prerelease }}" = "true" ]; then
+            prerelease=(--prerelease)
+          else
+            prerelease=()
+          fi
+          gh release create "v${{ steps.pkg.outputs.version }}" \
+            "${prerelease[@]}" \
+            --title "v${{ steps.pkg.outputs.version }}" \
+            --notes "version ${{ steps.pkg.outputs.version }}" \
+            "${{ inputs.package_dir }}/package.json" \
+            "$GITHUB_WORKSPACE/vpm-dist/${{ steps.pkg.outputs.name }}-${{ steps.pkg.outputs.version }}.zip"
+
+      - name: Rebuild VPM listing
+        if: steps.exists.outputs.exists != 'true'
+        env:
+          LISTING_DISPATCH_TOKEN: ${{ secrets.LISTING_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$LISTING_DISPATCH_TOKEN" ]; then
+            echo "LISTING_DISPATCH_TOKEN is not set. The listing updates on the daily schedule."
+            exit 0
+          fi
+          curl -fsS -X POST \
+            -H "Authorization: Bearer $LISTING_DISPATCH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/S0iRu/vpm-repos/dispatches \
+            -d '{"event_type":"build-listing"}'
